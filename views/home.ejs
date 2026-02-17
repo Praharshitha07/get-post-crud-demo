@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+    body { font-family: Arial; margin:0; background:#f4f6f9; }
+
+    .navbar {
+      background:#4F46E5;
+      color:white;
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .container {
+      width:85%;
+      margin:30px auto;
+    }
+
+    .card {
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      margin-bottom:25px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    h2 { margin-top:0; }
+
+    input, select, button {
+      padding:10px;
+      margin:5px;
+      border-radius:6px;
+      border:1px solid #ccc;
+    }
+
+    button {
+      background:#4F46E5;
+      color:white;
+      border:none;
+      cursor:pointer;
+    }
+
+    button:hover { background:#4338CA; }
+
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+    }
+
+    th, td {
+      padding:12px;
+      border-bottom:1px solid #ddd;
+      text-align:center;
+    }
+
+    th { background:#f3f4f6; }
+
+    .delete {
+      color:red;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .total-box {
+      font-size:18px;
+      font-weight:bold;
+      text-align:right;
+      margin-top:10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Welcome, <%= user.name %>!</h1>
+<a href="/add-expense">Add Expense</a>
+<a href="/logout">Logout</a>
+
+<h2>Your Expenses</h2>
+
+<% if (expenses.length === 0) { %>
+  <p>No expenses added yet.</p>
+<% } else { %>
+  <table border="1" cellpadding="10">
+    <tr>
+      <th>Note</th>
+      <th>Category</th>
+      <th>Amount (₹)</th>
+      <th>Date</th>
+      <th>Action</th>
+    </tr>
+    <% let total = 0; %>
+    <% expenses.forEach(exp => { total += exp.amount; %>
+      <tr>
+        <td><%= exp.note %></td>
+        <td><%= exp.category %></td>
+        <td><%= exp.amount %></td>
+        <td><%= exp.date %></td>
+        <td><a href="/delete-expense/<%= exp.id %>">Delete</a></td>
+      </tr>
+    <% }) %>
+    <tr>
+      <td colspan="2"><strong>Total</strong></td>
+      <td colspan="3"><strong>₹ <%= total %></strong></td>
+    </tr>
+  </table>
+<% } %>
+
+</body>
+</html>
